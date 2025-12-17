@@ -8,13 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NoIndex
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        $response = $next($request);
+
+        // Menambahkan Header X-Robots-Tag ke setiap respon server
+        $response->headers->set('X-Robots-Tag', 'noindex, nofollow');
+
+        return $response;
     }
 }

@@ -33,11 +33,23 @@
                         {{-- @csrf adalah token keamanan wajib di Laravel --}}
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Pilih Jenis Data:</label>
-                            <select name="type" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                <option value="KLINIK">Data KLINIK (Kunjungan)</option>
-                                <option value="DATABASE">Data DATABASE (Sumber Pasien)</option>
+                            <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Pilih Jenis File:</label>
+                            
+                            <select name="type" id="type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                <option value="" disabled selected>-- Pilih Tipe Import --</option>
+                                
+                                <option value="KLINIK">📂 Data Kunjungan Klinik (Harian)</option>
+                                <option value="DATABASE">📂 Database Pasien (Master)</option>
+                                
+                                <option disabled>────────── Laporan Validasi ──────────</option>
+                                
+                                <option value="RADIO_CONVERTED">✅ Laporan Radioterapi (Converted)</option>
+                                <option value="KEMO_CONVERTED">✅ Laporan Kemoterapi (Converted)</option>
                             </select>
+                            
+                            <p class="text-xs text-gray-500 mt-1">
+                                *Pilih "Laporan Validasi" untuk otomatis mengupdate status pasien menjadi Converted.
+                            </p>
                         </div>
 
                         <div class="mb-4">

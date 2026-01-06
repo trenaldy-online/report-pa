@@ -19,6 +19,10 @@ use App\Models\PatientDatabase;
 use App\Models\ClinicVisitImport;
 use App\Models\PatientDatabaseImport;
 
+// Import Class Radioterapi & Kemoterapi
+use App\Imports\RadioterapiImport;
+use App\Imports\KemoterapiImport;
+
 class ImportController extends Controller
 {
     /**
@@ -36,26 +40,38 @@ class ImportController extends Controller
     {
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv',
-            'type' => 'required|in:KLINIK,DATABASE'
+            'type' => 'required'
         ]);
 
         $file = $request->file('file');
         $type = $request->type;
 
-        // PERBAIKAN: Ganti auth()->id() menjadi Auth::id()
-        ClinicVisitImport::where('uploaded_by', Auth::id())->delete();
-        PatientDatabaseImport::where('uploaded_by', Auth::id())->delete();
-
+        // 1. IMPORT KLINIK (Pakai Review)
         if ($type == 'KLINIK') {
+            ClinicVisitImport::where('uploaded_by', \Illuminate\Support\Facades\Auth::id())->delete();
             Excel::import(new KlinikImport, $file);
-            session(['import_type' => 'KLINIK']); 
+            session(['import_type' => 'KLINIK']);
+            return redirect()->route('import.review');
         } 
+        // 2. IMPORT DATABASE PASIEN (Pakai Review)
         else if ($type == 'DATABASE') {
+            PatientDatabaseImport::where('uploaded_by', \Illuminate\Support\Facades\Auth::id())->delete();
             Excel::import(new DatabaseImport, $file);
-            session(['import_type' => 'DATABASE']); 
+            session(['import_type' => 'DATABASE']);
+            return redirect()->route('import.review');
+        }
+        // 3. IMPORT RADIOTERAPI CONVERTED (Langsung Simpan)
+        else if ($type == 'RADIO_CONVERTED') {
+            Excel::import(new RadioterapiImport, $file);
+            return back()->with('success', 'Data Radioterapi Converted berhasil diperbarui!');
+        }
+        // 4. IMPORT KEMOTERAPI CONVERTED (Langsung Simpan)
+        else if ($type == 'KEMO_CONVERTED') {
+            Excel::import(new KemoterapiImport, $file);
+            return back()->with('success', 'Data Kemoterapi Converted berhasil diperbarui!');
         }
 
-        return redirect()->route('import.review');
+        return back()->with('error', 'Tipe import tidak dikenali.');
     }
 
     /**

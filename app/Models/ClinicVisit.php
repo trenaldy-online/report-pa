@@ -20,4 +20,23 @@ class ClinicVisit extends Model
         'new_patient' => 'boolean',
         'tanggal_kunjungan' => 'date',
     ];
+
+    // Relasi
+    public function radioConverted()
+    {
+        return $this->hasOne(RadioterapiConverted::class, 'no_rm', 'no_rm');
+    }
+
+    public function kemoConverted()
+    {
+        return $this->hasOne(KemoterapiConverted::class, 'no_rm', 'no_rm');
+    }
+
+    // Magic Attribute
+    public function getIsConvertedAttribute()
+    {
+        if ($this->radioConverted()->exists()) return true;
+        if ($this->kemoConverted()->exists()) return true;
+        return false;
+    }
 }

@@ -42,6 +42,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Route Baru untuk Fitur Review
+    Route::get('/import/review', [ImportController::class, 'review'])->name('import.review');
+    Route::post('/import/commit', [ImportController::class, 'commit'])->name('import.commit');
+    Route::delete('/import/temp/{id}', [ImportController::class, 'destroyTemp'])->name('import.destroyTemp');
 });
 
 require __DIR__.'/auth.php';

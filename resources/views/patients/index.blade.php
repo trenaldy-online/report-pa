@@ -69,7 +69,9 @@
                                 </td>
                                 
                                 <td class="px-4 py-3 border-r border-gray-100">
-                                    <div class="font-semibold text-gray-800">{{ $patient->name_of_patient }}</div>
+                                    <div class="font-bold text-gray-800">
+                                        {{ $patient->name_of_patient ?? $patient->nama_pasien ?? $patient->Nama_Pasien ?? 'Tanpa Nama' }}
+                                    </div>
                                     @if(!empty($patient->overseas_hospital) && $patient->overseas_hospital != '-')
                                         <div class="text-[10px] text-amber-700 mt-1 flex items-center gap-1 font-medium bg-amber-50 px-1 py-0.5 rounded w-fit">
                                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

@@ -262,7 +262,7 @@ class ImportController extends Controller
             PatientDatabase::updateOrCreate(
                 ['no_rm' => $row->no_rm], 
                 [
-                    'name_of_patient'       => $row->nama_pasien,
+                    'name_of_patient'       => $row->name_of_patient,
                     'diagnosis'             => $row->diagnosis,
                     'age'                   => $row->age,
                     'overseas_hospital'     => $row->overseas_hospital,

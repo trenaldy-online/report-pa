@@ -66,7 +66,7 @@
                                             data-json="{{ json_encode($row) }}">
                                             Copy Data
                                         </button>
-                                        <span class="text-green-600 text-xs font-bold hidden msg-success block mt-1">Copied!</span>
+                                        <div class="text-green-600 text-xs font-bold hidden msg-success mt-1">Copied!</div>
                                     </td>
                                 </tr>
                             @empty

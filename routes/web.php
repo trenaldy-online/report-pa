@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ImportController; // Tambahkan ini
-use App\Http\Controllers\PatientController; // Tambahkan ini (kita buat nanti)
+use App\Http\Controllers\ImportController; 
+use App\Http\Controllers\PatientController; 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FollowUpController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,6 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/import/review', [ImportController::class, 'review'])->name('import.review');
     Route::post('/import/commit', [ImportController::class, 'commit'])->name('import.commit');
     Route::delete('/import/temp/{id}', [ImportController::class, 'destroyTemp'])->name('import.destroyTemp');
+
+    
+    // Route Baru untuk Fitur Follow Up
+    Route::get('/followup', [FollowUpController::class, 'index'])->name('followup.index')->middleware('auth');
 });
 
 require __DIR__.'/auth.php';

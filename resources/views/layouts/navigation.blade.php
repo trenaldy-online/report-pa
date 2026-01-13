@@ -34,6 +34,11 @@
                         {{ __('Import Excel') }}
                     </x-nav-link>
 
+                    {{-- 5. FOLLOW UP WHATSAPP --}}
+                    <x-nav-link :href="route('followup.index')" :active="request()->routeIs('followup.index')">
+                        {{ __('Follow Up WhatsApp') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
@@ -94,6 +99,9 @@
             <x-responsive-nav-link :href="route('import.form')" :active="request()->routeIs('import.*')">
                 {{ __('Import Data') }}
             </x-responsive-nav-link>
+            <x-nav-link :href="route('followup.index')" :active="request()->routeIs('followup.index')">
+                {{ __('Follow Up WhatsApp') }}
+            </x-nav-link>
         </div>
 
         <div class="pt-4 pb-1 border-t border-gray-200">
